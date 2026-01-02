@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/ContactForm.css';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 const ContactForm = ({ onContactAdded }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -59,7 +61,7 @@ const ContactForm = ({ onContactAdded }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post('/api/contacts', formData);
+      const response = await axios.post(`${API_URL}/api/contacts`, formData);
       setSuccess('Contact added successfully!');
       setFormData({ name: '', email: '', phone: '', message: '' });
       onContactAdded(response.data);

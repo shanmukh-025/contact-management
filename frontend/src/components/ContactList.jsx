@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/ContactList.css';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 const ContactList = ({ contacts, onContactDeleted }) => {
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState('newest');
@@ -24,7 +26,7 @@ const ContactList = ({ contacts, onContactDeleted }) => {
     if (window.confirm('Are you sure you want to delete this contact?')) {
       setLoading(true);
       try {
-        await axios.delete(`/api/contacts/${id}`);
+        await axios.delete(`${API_URL}/api/contacts/${id}`);
         onContactDeleted(id);
         setLocalContacts(localContacts.filter(contact => contact._id !== id));
       } catch (error) {

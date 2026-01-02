@@ -4,6 +4,8 @@ import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import './App.css';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 function App() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,7 @@ function App() {
   const fetchContacts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/contacts');
+      const response = await axios.get(`${API_URL}/api/contacts`);
       setContacts(response.data);
     } catch (error) {
       console.error('Error fetching contacts:', error);
